@@ -1,0 +1,68 @@
+{
+  "name": "cmap-mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for CMap Professional Services CRM API - enables natural language queries to professional services business data",
+  "main": "dist/index.js",
+  "bin": {
+    "cmap-mcp-server": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "prepublishOnly": "echo 'Build files already exist'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "mcp",
+    "cmap",
+    "professional-services",
+    "crm",
+    "consulting",
+    "api",
+    "claude",
+    "ai",
+    "business-intelligence",
+    "project-management",
+    "resource-management",
+    "aec",
+    "natural-language",
+    "model-context-protocol"
+  ],
+  "author": {
+    "name": "Richard Wild",
+    "email": "richard.wild@ethos.co.im",
+    "url": "https://github.com/zabarich/cmap-mcp-server"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zabarich/cmap-mcp-server.git"
+  },
+  "homepage": "https://github.com/zabarich/cmap-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/zabarich/cmap-mcp-server/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.0",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

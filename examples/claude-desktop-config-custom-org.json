@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "cmap": {
+      "command": "npx",
+      "args": ["-y", "@your-org/cmap-mcp-server"],
+      "env": {
+        "CMAP_CLIENT_ID": "your-client-id",
+        "CMAP_CLIENT_SECRET": "your-client-secret",
+        "CMAP_TENANT_ID": "your-tenant-id",
+        "CMAP_BASE_URL": "https://api.cmap-sandbox.com"
+      }
+    }
+  }
+}

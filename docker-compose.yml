@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  cmap-mcp-server:
+    build: .
+    container_name: cmap-mcp-server
+    restart: unless-stopped
+    environment:
+      - CMAP_CLIENT_ID=${CMAP_CLIENT_ID}
+      - CMAP_CLIENT_SECRET=${CMAP_CLIENT_SECRET}
+      - CMAP_TENANT_ID=${CMAP_TENANT_ID}
+      - CMAP_BASE_URL=${CMAP_BASE_URL:-https://api.cmap-sandbox.com}
+      - NODE_ENV=production
+    volumes:
+      # Mount logs directory (optional)
+      - ./logs:/app/logs
+    networks:
+      - cmap-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "process.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  cmap-network:
+    driver: bridge

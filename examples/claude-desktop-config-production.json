@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "cmap": {
+      "command": "npx",
+      "args": ["-y", "cmap-mcp-server"],
+      "env": {
+        "CMAP_CLIENT_ID": "your-production-client-id",
+        "CMAP_CLIENT_SECRET": "your-production-client-secret",
+        "CMAP_TENANT_ID": "your-production-tenant-id",
+        "CMAP_BASE_URL": "https://api.cmaphq.com"
+      }
+    }
+  }
+}
