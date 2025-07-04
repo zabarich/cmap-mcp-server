@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server that provides natural language access to CMap Professional Services CRM API data through Claude Desktop.
 
+**This is a real working MCP server used in production to connect Claude to CMAP CRM.**
+
 [![npm version](https://badge.fury.io/js/cmap-mcp-server.svg)](https://www.npmjs.com/package/cmap-mcp-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -29,6 +31,7 @@ A Model Context Protocol (MCP) server that provides natural language access to C
 "Find all contacts at our top clients"
 "What's the total value of projects managed by [Project Manager Name]?"
 "Show project profitability by client"
+"Using cmap, find all active projects with overdue invoices"
 ```
 
 ## Getting CMAP API Credentials
@@ -75,6 +78,22 @@ npm run build
 
 # Publish to your NPM account
 npm publish
+```
+
+### Option 4: Run from Source
+```bash
+# Clone the repository
+git clone https://github.com/zabarich/cmap-mcp-server.git
+cd cmap-mcp-server
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run the MCP server
+npx mcp-server .
 ```
 
 ## Configuration
