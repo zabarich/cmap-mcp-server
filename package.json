@@ -1,6 +1,6 @@
 {
   "name": "cmap-mcp-server",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Model Context Protocol (MCP) server for CMap Professional Services CRM API - enables natural language queries to professional services business data",
   "main": "dist/index.js",
   "bin": {

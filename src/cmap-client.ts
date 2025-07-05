@@ -88,7 +88,7 @@ export class CMapClient {
   /**
    * Make authenticated API request
    */
-  private async apiRequest<T>(endpoint: string, params: Record<string, any> = {}): Promise<CMapApiResponse<T>> {
+  private async apiRequest<T>(endpoint: string, params: Record<string, any> = {}, version: string = 'v1'): Promise<CMapApiResponse<T>> {
     await this.ensureValidToken();
 
     const queryParams = new URLSearchParams();
@@ -98,7 +98,7 @@ export class CMapClient {
       }
     });
 
-    const url = `${this.baseUrl}/v1/${endpoint}?${queryParams.toString()}`;
+    const url = `${this.baseUrl}/${version}/${endpoint}?${queryParams.toString()}`;
 
     const headers = {
       'Authorization': `Bearer ${this.accessToken}`,
@@ -121,6 +121,41 @@ export class CMapClient {
       }
 
       return await response.json() as CMapApiResponse<T>;
+    } catch (error) {
+      console.error(`❌ CMAP API request failed for ${endpoint}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Make authenticated API request for v2 endpoints (raw response)
+   */
+  private async apiRequestV2<T>(endpoint: string): Promise<T> {
+    await this.ensureValidToken();
+
+    const url = `${this.baseUrl}/v2/${endpoint}`;
+
+    const headers = {
+      'Authorization': `Bearer ${this.accessToken}`,
+      'Accept': 'application/json',
+      'tenant_id': this.config.tenantId
+    };
+
+    console.error(`🔍 API Request to: ${url}`);
+    console.error(`🔑 Headers:`, JSON.stringify(headers, null, 2));
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API request failed: ${response.status} - ${errorText}`);
+      }
+
+      return await response.json() as T;
     } catch (error) {
       console.error(`❌ CMAP API request failed for ${endpoint}:`, error);
       throw error;
@@ -228,5 +263,26 @@ export class CMapClient {
       console.error('❌ CMAP health check failed:', error);
       return false;
     }
+  }
+
+  /**
+   * Get budget tabs for a project (Budget v2 API)
+   */
+  async getBudgetTabs(projectId: string): Promise<any> {
+    return this.apiRequestV2(`budget/${projectId}/tabs`);
+  }
+
+  /**
+   * Get budget stages for a project (Budget v2 API)
+   */
+  async getBudgetStages(projectId: string): Promise<any> {
+    return this.apiRequestV2(`budget/${projectId}/stages`);
+  }
+
+  /**
+   * Get budget tasks for a project (Budget v2 API)
+   */
+  async getBudgetTasks(projectId: string): Promise<any> {
+    return this.apiRequestV2(`budget/${projectId}/tasks`);
   }
 }

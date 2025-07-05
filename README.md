@@ -23,6 +23,7 @@ A Model Context Protocol (MCP) server that provides natural language access to C
 - **Users**: Team members, consultants, and their assignments
 - **Contacts**: Client contacts and stakeholders
 - **Financial Data**: Project profitability, budgets, and billing
+- **Budget v2**: Detailed project budgets with tabs, stages, and task-level cost breakdowns
 
 ### Example Natural Language Queries
 ```
@@ -32,6 +33,9 @@ A Model Context Protocol (MCP) server that provides natural language access to C
 "What's the total value of projects managed by [Project Manager Name]?"
 "Show project profitability by client"
 "Using cmap, find all active projects with overdue invoices"
+"Show me the budget breakdown for project ID 12345"
+"What are the budget stages for this project?"
+"List all budget tasks and their estimated costs"
 ```
 
 ## Getting CMAP API Credentials
@@ -179,6 +183,9 @@ Add to your Claude Desktop MCP configuration file:
 | `get_project` | Detailed project information | "Project details for ID X" |
 | `get_users` | Team member directory | "List all consultants", "Find available resources" |
 | `get_contacts` | Contact directory | "Contacts at company X" |
+| `get_budget_tabs` | Get project budget tabs (v2) | "Show budget categories for project" |
+| `get_budget_stages` | Get project budget stages (v2) | "List project phases and costs" |
+| `get_budget_tasks` | Get project budget tasks (v2) | "Show detailed task-level budgets" |
 | `health_check` | Verify API connectivity | "Test CMAP connection" |
 
 ## Business Intelligence Examples
@@ -188,6 +195,8 @@ Add to your Claude Desktop MCP configuration file:
 "What's the total value of all active projects?"
 "Show me project profitability by client"
 "Which projects are over budget?"
+"Break down the budget by stages for project X"
+"Show me all budget tasks with cost estimates"
 ```
 
 ### Resource Management

@@ -16,7 +16,7 @@ dotenv.config();
 const server = new Server(
   {
     name: 'cmap-mcp-server',
-    version: '1.0.0',
+    version: '2.0.0',
   },
   {
     capabilities: {
@@ -111,6 +111,39 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         name: 'health_check',
         description: 'Check CMAP API connectivity and authentication',
         inputSchema: { type: 'object', properties: {} },
+      },
+      {
+        name: 'get_budget_tabs',
+        description: 'Get budget tabs for a specific project (Budget v2 API)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            project_id: { type: 'string', description: 'Project ID to retrieve budget tabs for' },
+          },
+          required: ['project_id'],
+        },
+      },
+      {
+        name: 'get_budget_stages',
+        description: 'Get budget stages for a specific project (Budget v2 API)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            project_id: { type: 'string', description: 'Project ID to retrieve budget stages for' },
+          },
+          required: ['project_id'],
+        },
+      },
+      {
+        name: 'get_budget_tasks',
+        description: 'Get budget tasks for a specific project (Budget v2 API)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            project_id: { type: 'string', description: 'Project ID to retrieve budget tasks for' },
+          },
+          required: ['project_id'],
+        },
       },
     ],
   };
@@ -346,6 +379,54 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 status: result ? 'healthy' : 'unhealthy',
                 timestamp: new Date().toISOString(),
               }, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_budget_tabs': {
+        const projectId = (args as any)?.project_id;
+        if (!projectId) {
+          throw new Error('project_id is required');
+        }
+        const result = await cmapClient.getBudgetTabs(projectId);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_budget_stages': {
+        const projectId = (args as any)?.project_id;
+        if (!projectId) {
+          throw new Error('project_id is required');
+        }
+        const result = await cmapClient.getBudgetStages(projectId);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_budget_tasks': {
+        const projectId = (args as any)?.project_id;
+        if (!projectId) {
+          throw new Error('project_id is required');
+        }
+        const result = await cmapClient.getBudgetTasks(projectId);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
             },
           ],
         };
